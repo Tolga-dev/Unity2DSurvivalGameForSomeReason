@@ -1,7 +1,7 @@
 using System;
 using Manager.Base;
 
-namespace Controllers.Base
+namespace Entity.Controllers.Base
 {
     [Serializable]
     public class ControllerBase

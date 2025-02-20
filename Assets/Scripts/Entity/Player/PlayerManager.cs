@@ -1,9 +1,8 @@
-using Controllers.Player;
+using Entity.Controllers.Player;
 using Manager.Base;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Manager
+namespace Entity.Player
 {
 	public class PlayerManager : ManagerBase
 	{

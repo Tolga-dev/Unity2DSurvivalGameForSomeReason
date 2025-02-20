@@ -1,4 +1,5 @@
 using Core;
+using Entity.Player;
 using Manager.Base;
 using UnityEngine;
 

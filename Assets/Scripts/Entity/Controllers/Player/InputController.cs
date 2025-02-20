@@ -1,8 +1,8 @@
 using System;
-using Controllers.Base;
+using Entity.Controllers.Base;
 using UnityEngine;
 
-namespace Controllers.Player
+namespace Entity.Controllers.Player
 {
     [Serializable]
     public class InputController : ControllerBase

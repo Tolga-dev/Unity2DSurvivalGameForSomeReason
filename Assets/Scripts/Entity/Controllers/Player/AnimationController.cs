@@ -1,10 +1,11 @@
 using System;
-using Controllers.Base;
+using Entity.Controllers.Base;
+using Entity.Player;
 using Manager;
 using Manager.Base;
 using UnityEngine;
 
-namespace Controllers.Player
+namespace Entity.Controllers.Player
 {
     [Serializable]
     public class AnimationController : ControllerBase
