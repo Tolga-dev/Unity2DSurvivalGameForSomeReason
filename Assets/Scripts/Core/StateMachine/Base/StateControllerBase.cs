@@ -27,7 +27,7 @@ namespace Core.StateMachine.Base
         
         public void Update() => _currentState.Update();
 
-        protected void SetState<T>() where T : IState
+        public void SetState<T>() where T : IState
         {
             if (_states.TryGetValue(typeof(T), out var newState))
             {
