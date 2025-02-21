@@ -11,6 +11,8 @@ namespace Entity.Controllers.Player
     public class AnimationController : ControllerBase
     {
         private MovementController _movementController;
+        private PlayerBase _playerBase;
+
         [SerializeField] private SpriteRenderer playerSpriteRenderer;
 
         private Color _upColor = Color.blue;
@@ -21,7 +23,8 @@ namespace Entity.Controllers.Player
         public override void Start(ManagerBase playerBase)
         {
             base.Start(playerBase);
-            _movementController = PlayerManager.movementController;
+            _playerBase = (PlayerBase) playerBase;
+            _movementController = _playerBase.movementController;
         }
 
         public override void Update()
@@ -69,8 +72,5 @@ namespace Entity.Controllers.Player
             }
             return max / Mathf.Max(1, directionCount);
         }
-
-
-        public PlayerManager PlayerManager => (PlayerManager)ManagerBase;
     }
 }

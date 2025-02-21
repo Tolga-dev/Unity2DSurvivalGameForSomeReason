@@ -1,14 +1,19 @@
-using Core;
 using Entity.Npc.Enemy;
 using Entity.Player;
 using Manager.Base;
-using UnityEngine;
+using UI.PopUps.Controller;
 
 namespace Manager
 {
     public class GameManager : ManagerBase
     {
-        public PlayerManager playerManager;        
+        public InventoryManager inventoryManager;
+        public MapWorldManager mapWorldGenerator;
+
+        public PlayerBase playerBase;        
         public EnemyBase enemyBase;
+
+        public PopUpController popUpController;
+        
     }
 }

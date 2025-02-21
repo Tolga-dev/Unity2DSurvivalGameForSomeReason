@@ -20,6 +20,8 @@ namespace Entity.Controllers.Player
     [Serializable]
     public class MovementController : ControllerBase
     {
+        private PlayerBase _playerBase;
+        
         [SerializeField] private float smoothDampParameter = 0.2f;
         [SerializeField] private float velocityConstant = 0.2f;
 
@@ -30,8 +32,10 @@ namespace Entity.Controllers.Player
         public override void Start(ManagerBase playerBase)
         {
             base.Start(playerBase);
+            _playerBase = (PlayerBase)playerBase;
+
             _rb = playerBase.GetComponent<Rigidbody2D>();
-            InputController = PlayerManager.inputController;
+            InputController = _playerBase.inputController;
 
             _maxSpeed = Time.fixedDeltaTime * velocityConstant;
         }
@@ -94,8 +98,7 @@ namespace Entity.Controllers.Player
         public float CurrentVelocity => _rb.velocity.magnitude;
         public float MaxVelocity => _maxSpeed;
         public MovementDirection CurrentDirection => _direction;
-        public InputController InputController { get; set; }
-        public PlayerManager PlayerManager => (PlayerManager)ManagerBase;
+        public InputController InputController { get; set; } 
         
         public bool IsUp => ((_direction & MovementDirection.Up) != 0);
         public bool IsDown => ((_direction & MovementDirection.Down) != 0);

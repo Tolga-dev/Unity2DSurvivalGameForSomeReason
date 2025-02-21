@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b0fab9bcdb4d6eb266261899ae7909, type: 3}
+  m_Name: CrossBox
+  m_EditorClassIdentifier: 
+  displayName: Crossbow
+  description: A cool crossbow
+  weight: 18
+  icon: {fileID: 21300000, guid: b8a15f789aaf52d4da583363b7b7cfc6, type: 3}
+  maxStackAbleAmount: 3
+  dps: 15
+  attackDescription: You shoot an arrow
+  ammunition: {fileID: 11400000, guid: aba4b31f4cf89ae49a6352439ad0eb1b, type: 2}
