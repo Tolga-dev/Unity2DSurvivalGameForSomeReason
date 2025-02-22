@@ -52,13 +52,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6135863507d67242a3b8370dbebddd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryManager: {fileID: 0}
   itemIcon: {fileID: 5953866690007430143}
   itemAmountText: {fileID: 9036846401129139271}
   currentItem: {fileID: 0}
   amount: 0
   activeSlot: {fileID: 0}
   oldActiveSlot: {fileID: 0}
-  inventory: {fileID: 0}
 --- !u!222 &1318075423095190492
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -144,8 +144,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 4.700012, y: -8.099976}
-  m_SizeDelta: {x: 14.0092, y: 21.4541}
+  m_AnchoredPosition: {x: -0.10000038, y: -2.2999992}
+  m_SizeDelta: {x: 37.3116, y: 23.2218}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &4153641623733186727
 CanvasRenderer:
@@ -202,14 +202,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.2
+  m_fontSize: 20.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 1
-  m_fontSizeMax: 72
+  m_fontSizeMax: 150
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0

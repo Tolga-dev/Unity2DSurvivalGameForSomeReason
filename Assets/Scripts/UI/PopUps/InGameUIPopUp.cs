@@ -7,17 +7,18 @@ namespace UI.PopUps
 {
     public class InGameUIPopUp : PopUpGameBase
     {
-        public Transform pickItemDisplayPanel;
-
-        public int health;
-        public int hunger;
+        [Header("Total Armor Protection")]
         public int totalArmorProtection;
-		
-        public TextMeshProUGUI healthText;
-        public TextMeshProUGUI hungerText;
         public TextMeshProUGUI totalArmorProtectionText;
 
+        [Header("Pick Item Display Panel")]
+        public Transform pickItemDisplayPanel;
         public PlayerBase playerBase;
+        
+        [Header("Health Lose Indicator")]
+        public Canvas healthLoseIndicatorPrefab;
+        public float duration = 0.5f;
+        public float moveSpeed = 2f;  
         
         public bool CheckForPickItem()
         {
@@ -32,30 +33,18 @@ namespace UI.PopUps
                 return false;
             }
         }
-        public void SetPickItemDisplayPanel(bool b)
+
+        private void SetPickItemDisplayPanel(bool b)
         {
             pickItemDisplayPanel.gameObject.SetActive(b);
         }
         public void SetUI()
         {
-            healthText.text ="Health " + health;
-            hungerText.text = "Hunger " + hunger;
             totalArmorProtectionText.text = "Total Armor Protection " + totalArmorProtection;
-        }
-		
-        public void SetHealth(int val)
-        {
-            health += val; 
-            SetUI();
         }
         public void SetTotalProtection(float val)
         {
             totalArmorProtection += (int)val; 
-            SetUI();
-        }
-        public void SetHunger(int val)
-        {            
-            hunger += val; 
             SetUI();
         }
     }

@@ -13,7 +13,8 @@ namespace Entity.Npc.States.Controller
         private EnemyIdleState _idleState;
         private EnemyPatrolState _patrolState;
         private EnemyAttackState _attackState;
-         
+        private EnemyDeadState _enemyDeadState;
+        
         public void Starter(GameManager gameManager)
         {
             GameManager = gameManager;
@@ -23,11 +24,13 @@ namespace Entity.Npc.States.Controller
             _idleState = new EnemyIdleState(this);
             _patrolState = new EnemyPatrolState(this);
             _attackState = new EnemyAttackState(this);
+            _enemyDeadState = new EnemyDeadState(this);
             
             AddState(_chaseState);
             AddState(_attackState);
             AddState(_idleState);
             AddState(_patrolState);
+            AddState(_enemyDeadState);
             
             SetState<EnemyIdleState>();
             

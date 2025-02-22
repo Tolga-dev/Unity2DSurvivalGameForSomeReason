@@ -3,6 +3,7 @@ using Entity.Controllers.Base;
 using Entity.Player;
 using Manager;
 using Manager.Base;
+using So;
 using UnityEngine;
 
 namespace Entity.Controllers.Player
@@ -67,7 +68,10 @@ namespace Entity.Controllers.Player
         public MovementDirection GetDirection()
         {
             if (CurrentVelocity < 0.01f)
+            {
+                _playerBase.animationController.SetFloat(ActionType.Idle);
                 return MovementDirection.None;
+            }
 
             var normalizedVelocity = _rb.velocity.normalized;
             var direction = MovementDirection.None;
@@ -91,6 +95,7 @@ namespace Entity.Controllers.Player
                     direction |= MovementDirection.Down;
                     break;
             }
+            _playerBase.animationController.SetFloat(ActionType.Walk);
 
             return direction;
         }

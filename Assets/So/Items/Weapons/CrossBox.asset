@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Crossbow
   description: A cool crossbow
-  weight: 18
-  icon: {fileID: 21300000, guid: b8a15f789aaf52d4da583363b7b7cfc6, type: 3}
-  maxStackAbleAmount: 3
+  icon: {fileID: -1129419116, guid: 383aef37898fa624db3efdbee6c0df52, type: 3}
+  maxStackAbleAmount: 1
+  onWorldItemPrefab: {fileID: 1166234708285431244, guid: 45ee69eebec1379639941debe37e76c7, type: 3}
+  onUseEvent:
+    m_PersistentCalls:
+      m_Calls: []
   dps: 15
-  attackDescription: You shoot an arrow
-  ammunition: {fileID: 11400000, guid: aba4b31f4cf89ae49a6352439ad0eb1b, type: 2}
+  fireRate: 0.5
+  ammunition: {fileID: 11400000, guid: f4926e21db4ce6ba38fa98d55f7f621b, type: 2}
+  ammoConsumption: 1

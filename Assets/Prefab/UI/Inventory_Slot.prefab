@@ -115,3 +115,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryItem: {fileID: 0}
   myTag: 0
+  slotImage: {fileID: 8129130665278014412}

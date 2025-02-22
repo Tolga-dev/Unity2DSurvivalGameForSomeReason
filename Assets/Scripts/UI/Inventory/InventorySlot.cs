@@ -1,5 +1,6 @@
 using System.Collections;
-using So.ItemsSo.Armor;
+using Manager;
+using So.ItemsSo.ArmorItems;
 using So.ItemsSo.Base;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,11 +10,12 @@ namespace UI.Inventory
 {
     public enum SlotTag { None, Head, Chest, Legs, Feet,OutSide}
 
-    public class InventorySlot : MonoBehaviour, IDropHandler,IPointerEnterHandler,IPointerExitHandler,IPointerClickHandler, IPointerDownHandler
+    public class InventorySlot : MonoBehaviour, IDropHandler,IPointerEnterHandler,IPointerExitHandler, IPointerDownHandler
     {
+        public InventoryManager inventoryManager;
         public InventoryItem inventoryItem;
         public SlotTag myTag;
-        
+        public Image slotImage;
         public void OnDrop(PointerEventData eventData)
         {
             var currentItem = eventData.pointerDrag.GetComponent<InventoryItem>();
@@ -21,6 +23,7 @@ namespace UI.Inventory
             
             if (myTag == SlotTag.OutSide)
             {
+                Debug.Log("Trash Slot");
                 CreateARealWorldItemInstance(currentItem);
             }
         }
@@ -32,6 +35,9 @@ namespace UI.Inventory
 
         public bool IsArmorOnCorrectPlace(Item item)
         {
+            if (item.GetItemType() != ItemTypes.Armor)
+                return false;
+            
             var armor = (Armor)item;
             var currentArmorType = armor.GetArmorType();
             switch (currentArmorType)
@@ -49,7 +55,7 @@ namespace UI.Inventory
         }
         private void CreateARealWorldItemInstance(InventoryItem currentItem)
         {
-            StartCoroutine(WaitForAFrame(currentItem));
+            inventoryManager.StartCoroutine(WaitForAFrame(currentItem));
         }
 
         private IEnumerator WaitForAFrame(InventoryItem currentItem)
@@ -65,7 +71,7 @@ namespace UI.Inventory
             if (inventoryItem != null)
             {
                 var descriptionPanelText = $"{inventoryItem.currentItem.name}: {inventoryItem.currentItem.GetFullDescription()}";
-                var descriptionPanel = inventoryItem.inventoryManager.inventoryPopUp.SetDescriptionPanel(descriptionPanelText);
+                var descriptionPanel = inventoryManager.inventoryPopUp.SetDescriptionPanel(descriptionPanelText,transform);
                 
                 LayoutRebuilder.ForceRebuildLayoutImmediate(descriptionPanel);
             }
@@ -79,28 +85,15 @@ namespace UI.Inventory
         {
             if (inventoryItem != null)
             {
-                inventoryItem.inventoryManager.inventoryPopUp.SetPanel(false);
+                inventoryManager.inventoryPopUp.SetPanel(false);
             }
         }
 
-        public void OnPointerClick(PointerEventData pointerEventData)
-        {
-            if (pointerEventData.button == PointerEventData.InputButton.Left)
-            {
-                if (inventoryItem != null)
-                {
-                    Debug.Log(inventoryItem.currentItem.OnUseMessage());
-                    HandleAmount();
-                }
-            }
-        }
-
-        private void HandleAmount()
+        public void HandleAmount()
         {
             if (inventoryItem.currentItem.GetItemType() != ItemTypes.Consumable)
                 return;
             
-            HandleFunctionCurrentItem(inventoryItem.currentItem);
             inventoryItem.amount--;
             inventoryItem.SetAmount();
 
@@ -111,9 +104,9 @@ namespace UI.Inventory
             }
         }
 
-        private void HandleFunctionCurrentItem(Item inventoryItemCurrentItem)
+        public void SetHighlight(bool b)
         {
-            inventoryItemCurrentItem.onUseEvent.Invoke();
+            slotImage.color = b ? Color.red : Color.white;
         }
     }
 }

@@ -15,5 +15,10 @@ namespace UI.PopUps.Base
             Debug.Log("OnStartHidden " + GetType());
             
         }
+
+        public virtual bool IsActive()
+        {
+            return gameObject.activeSelf;
+        }
     }
 }

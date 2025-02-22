@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.StateMachine.Interface;
+using So.ItemsSo.Base;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,27 +11,44 @@ namespace So
         Idle,
         Patrol,
         Attack,
-        Chase
+        Chase,
+        Walk
     }
     
     [CreateAssetMenu(fileName = "EnemySo", menuName = "So/EnemySo", order = 0)]
     public class EnemySo : EntitySo
     {
-        public List<StateActionAnimationId> animationIds = new();
+        [Header("Chase Values")]
+        public float chaseSpeed;
+        public float boostSpeed;
+        public float speedBoostDuration = 0.5f;
         
-        public StateActionAnimationId GetAnimationIdFromActionType(ActionType actionType)
+        [Header("Animation")]
+        public float walkStepCoolDown;
+
+        [Header("Attack Values")]
+        public int aoeAttackDamage = 10;
+        public float abilityCooldown = 1f;
+        public List<Item> canBeDropItems = new List<Item>();
+
+        [Header("Attack Range Values")]
+        public float longRangeAttack;
+        public float shortRangeAttack;
+        public GameObject longRangeAttackPrefab;
+        public float projectileSpeed;
+        public int arrowDamage = 5;
+
+        [Header("Patrol Values")]
+        public float patrolRadius = 10f;
+        public float minDistanceToTarget = 0.5f;
+        public float toFindNewTargetWaitTime = 1f;
+
+        public List<Item> GetDropItems()
         {
-            return animationIds.FirstOrDefault(x => x.actionType == actionType);
+            int itemCount = Random.Range(2, canBeDropItems.Count + 1); 
+            return canBeDropItems.OrderBy(x => Random.value).Take(itemCount).ToList(); 
         }
-        
+
     }
-    
-    [Serializable]
-    public class StateActionAnimationId
-    {
-        public string name = "Action";
-        public ActionType actionType;
-        public float animationValue;
-    }
- 
+
 }

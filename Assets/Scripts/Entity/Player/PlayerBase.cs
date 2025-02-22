@@ -1,26 +1,24 @@
+using Entity.Base;
 using Entity.Controllers.Player;
-using Entity.OnWorldItem;
 using Manager;
-using Manager.Base;
-using So.ItemsSo.Base;
-using TMPro;
+using So;
 using UI.PopUps;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Entity.Player
 {
-	public class PlayerBase : ManagerBase
+	public class PlayerBase : EntityBase
 	{
 		[Header("Controllers")] 
 		public InputController inputController;
 		public MovementController movementController;
-		public AnimationController animationController;
 		public PickUpController pickUpController;
+		protected override void Start()
+		{
+			base.Start();
+			StartCoroutine(HungerDepletion());
+		}
 
-		public GameManager gameManager;
-		public InGameUIPopUp inGameUIPopUp;
-		
 		protected override void Awake()
 		{
 			inputController.Start(this);
@@ -34,12 +32,38 @@ namespace Entity.Player
 		private void Update()
 		{
 			inputController.Update(); 
-			animationController.Update();
 			pickUpController.Update();
 		}
 		private void FixedUpdate()
 		{
 			movementController.Update();
 		}
+		protected override void EntityDeadAction()
+		{
+			gameManager.fxManager.PlayFx(FxSoEnum.PlayerDeathFx, transform, null,true);
+		}
+
+		protected override int CheckForEffects(int damage)
+		{
+			var totalProtection = inGameUIPopUp.totalArmorProtection;
+
+			if (damage > totalProtection)
+			{
+				return Mathf.Max(damage - totalProtection, 0);
+			}
+
+			float minProtectionFactor = 0.05f; 
+			float maxProtectionFactor = 0.5f;  
+
+			float protectionFactor = 
+				Mathf.Lerp(minProtectionFactor, maxProtectionFactor,
+					Mathf.InverseLerp(0, 1000, totalProtection));
+			
+			protectionFactor += Random.Range(-0.1f, 0.1f); 
+			protectionFactor = Mathf.Clamp(protectionFactor, minProtectionFactor, maxProtectionFactor);
+
+			return Mathf.Max(Mathf.CeilToInt(damage * protectionFactor), 1);
+		}
+
 	}
 }

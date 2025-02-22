@@ -16,6 +16,10 @@ MonoBehaviour:
   description: leg  is good for your leg
   icon: {fileID: 1099778781, guid: 383aef37898fa624db3efdbee6c0df52, type: 3}
   maxStackAbleAmount: 1
+  onWorldItemPrefab: {fileID: 3296733791873471446, guid: f2bc3ff0acbaab9adb18e4725a48d3a7, type: 3}
+  onUseEvent:
+    m_PersistentCalls:
+      m_Calls: []
   armorDurability: 3
   armorProtection: 3
   attackDescription: Leg Attacking Bro

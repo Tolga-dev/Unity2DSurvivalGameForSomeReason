@@ -16,5 +16,9 @@ MonoBehaviour:
   description: A cool sword
   icon: {fileID: 21300000, guid: 490de5b67a54a914088038c8d2c8282f, type: 3}
   maxStackAbleAmount: 1
+  onWorldItemPrefab: {fileID: 1166234708285431244, guid: 10949a70b79774e8598e2ae22cb17bc1, type: 3}
+  onUseEvent:
+    m_PersistentCalls:
+      m_Calls: []
   dps: 10
-  attackDescription: You swing your sword
+  fireRate: 2

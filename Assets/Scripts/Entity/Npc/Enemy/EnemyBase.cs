@@ -1,50 +1,50 @@
-using Entity.Controllers.Npc;
+using System.Collections;
+using Entity.Base;
 using Entity.Controllers.Npc.Enemy;
 using Entity.Npc.States.Controller;
 using Entity.Npc.States.State;
 using Manager;
-using Manager.Base;
 using So;
+using UI.PopUps;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Entity.Npc.Enemy
 {
-    public class EnemyBase : ManagerBase
+    public class EnemyBase : EntityBase
     {
-        public GameManager gameManager;
+        [Header("Enemy")]
         public NavMeshAgent navMeshAgent;
         public PlayerDetectorController playerDetectorController;
-        public AnimationController animationController;
         
-        public EnemySo entitySo;
-        private readonly EnemyStateController _enemyStateController = new EnemyStateController();
-        
+        private readonly EnemyStateController _enemyStateController = new();
         protected override void Awake()
         {
+
         }
         
-        public void Start()
+        protected override void Start()
         {
+            gameManager = FindObjectOfType<GameManager>();
+            inGameUIPopUp = FindObjectOfType<InGameUIPopUp>();
+            gameManager.enemyBase = this;
+            
+            base.Start();
             navMeshAgent.updateRotation = false;
             navMeshAgent.updateUpAxis = false;
 
-            animationController.Start(this);
             _enemyStateController.Starter(gameManager);
         }
+        
         public void Update()
         {
             _enemyStateController.Update();
         }
-        public void PlayerDetectedByIdleCollider()
-        {
-            _enemyStateController.SetState<EnemyChaseState>();
-        }
-        public void PlayerLostByChaseCollider()
-        {
-            _enemyStateController.SetState<EnemyIdleState>();
-        }
         
-        public EnemyStateController EnemyStateController => _enemyStateController; 
+        protected override void EntityDeadAction()
+        {
+            EnemyStateController.SetState<EnemyDeadState>();
+        }
+        public EnemyStateController EnemyStateController => _enemyStateController;
     }
 }

@@ -9,11 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b691de21f1fd94f8ea9944a03e9911, type: 3}
+  m_Script: {fileID: 11500000, guid: aa5b324ce094187428a6695ede10bde6, type: 3}
   m_Name: Arrow
   m_EditorClassIdentifier: 
   displayName: Arrow
-  description: A nomal arrow
-  weight: 1
+  description: Arrow nice for bow
   icon: {fileID: 21300000, guid: 74d98392ef5517b4086d34ad893d9eb8, type: 3}
-  maxStackAbleAmount: 3
+  maxStackAbleAmount: 100
+  onWorldItemPrefab: {fileID: 8200674976367372635, guid: 7b463e3dfdfb473deb808ff994965783, type: 3}
+  onUseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  effectAmount: 5
+  speed: 50

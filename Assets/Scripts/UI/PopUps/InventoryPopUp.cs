@@ -7,23 +7,14 @@ namespace UI.PopUps
     public class InventoryPopUp : PopUpGameBase
     {
         public InventoryUI inventoryUI;
-        
+        public Transform draggableItemsParent;
         private void Awake()
         {
             inventoryUI.giveItemBtn.onClick.AddListener(() =>
             {
-                InventoryManager.SpawnInventoryItem(InventoryManager.PickRandomItem(), 3);
+                InventoryManager.SpawnInventoryItem(InventoryManager.PickRandomItem(), 1);
             });
         }
-
-        private void SetHotPanelPlace(RectTransform parent)
-        {
-            var hotPlace = inventoryUI.hotPlace;
-            hotPlace.SetParent(parent, false);
-            hotPlace.localPosition = Vector3.zero;
-            hotPlace.anchoredPosition = Vector2.zero;
-        }
-        
         public void ToggleInventoryUI()
         {
             var playerUI = inventoryUI.playerUI;
@@ -35,11 +26,20 @@ namespace UI.PopUps
 
             SetHotPanelPlace(isInventoryActive ? uiManager.playerPanelHotPlace : uiManager.inventoryHotPlacePanel);
         }
-        public RectTransform SetDescriptionPanel(string description)
+        
+        private void SetHotPanelPlace(RectTransform parent)
+        {
+            var hotPlace = inventoryUI.hotPlace;
+            hotPlace.SetParent(parent, false);
+            hotPlace.localPosition = Vector3.zero;
+            hotPlace.anchoredPosition = Vector2.zero;
+        }
+        
+        public RectTransform SetDescriptionPanel(string description, Transform panelPosition)
         {
             var descriptionPanelText = inventoryUI.descriptionPanelText;
             var descriptionPanel = inventoryUI.descriptionPanel;
-            descriptionPanel.transform.position = transform.position;
+            descriptionPanel.transform.position = panelPosition.position;
 
             descriptionPanelText.text = description;
 

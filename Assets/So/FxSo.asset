@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c2a46410abc47ab9326f84ba26ee169, type: 3}
+  m_Name: FxSo
+  m_EditorClassIdentifier: 
+  fxPrefab: {fileID: 1121771328946063070, guid: c1da0fcdfd1e7d8ed90e6285b01b448d, type: 3}
+  fxSoData:
+  - fxSoEnum: 0
+    fxPrefab: {fileID: 7363704492515985737, guid: d54fdff94bd5090fca24eb91040da4ae, type: 3}
+  - fxSoEnum: 2
+    fxPrefab: {fileID: 7628684489216596398, guid: b04803c444c6fb06dadffd5f072aec07, type: 3}
+  - fxSoEnum: 1
+    fxPrefab: {fileID: 2513247356763863466, guid: 4abd2c34df9f09371b34654eb0fc56b1, type: 3}
+  - fxSoEnum: 3
+    fxPrefab: {fileID: 100000, guid: 2c557f8333c64984790ab0461bed7113, type: 3}
+  - fxSoEnum: 4
+    fxPrefab: {fileID: 100000, guid: f881607407b15cc46b24d6bda799037a, type: 3}
+  - fxSoEnum: 5
+    fxPrefab: {fileID: 2513247356763863466, guid: e51ab730a2f98d2d89bdf4b73b49f603, type: 3}

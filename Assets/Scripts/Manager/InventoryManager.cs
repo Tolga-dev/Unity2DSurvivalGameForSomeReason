@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Entity.Player;
 using So.ItemsSo.Base;
 using TMPro;
 using UI.Inventory;
 using UI.PopUps;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -15,15 +13,18 @@ namespace Manager
 {
     public class InventoryManager : MonoBehaviour
     {
-        [SerializeField] List<InventorySlot> inventorySlots = new List<InventorySlot>();
-        [SerializeField] List<InventorySlot> hotbarSlots = new List<InventorySlot>();
-        [SerializeField] List<InventorySlot> equipmentSlots = new List<InventorySlot>();
-
+        public GameManager gameManager;
+        public InventoryPopUp inventoryPopUp;
+        
+        [Header("Slots")] 
+        [SerializeField] public List<InventorySlot> inventorySlots = new List<InventorySlot>();
+        [SerializeField] public List<InventorySlot> hotbarSlots = new List<InventorySlot>();
+        [SerializeField] public List<InventorySlot> equipmentSlots = new List<InventorySlot>();
+        public InventorySlot trashSlot;
+        
         [Header("Item List")] 
         [SerializeField] public List<Item> items = new List<Item>();
-        public GameManager gameManager;
-
-        public InventoryPopUp inventoryPopUp;
+        
         private void Awake()
         {
             inventoryPopUp = gameManager.popUpController.GetPopUp<InventoryPopUp>();
@@ -31,11 +32,15 @@ namespace Manager
         
         public int SpawnInventoryItem(Item item, int amount)
         {
-            var result = CanAddAllItemsToInv(item,amount);
+            List<InventorySlot> slots = inventoryPopUp.IsActive() 
+                ? inventorySlots.Concat(hotbarSlots).ToList() : 
+                hotbarSlots.Concat(inventorySlots).ToList();
+            
+            var result = CanAddAllItemsToInv(item,amount, slots);
             if (result == 0)
                 return 0;
 
-            result = AddToEmptySlots(item, amount);
+            result = AddToEmptySlots(item, amount, slots);
             if (result != 0)
             {
                 Debug.Log("Inv Full!");
@@ -43,9 +48,8 @@ namespace Manager
             }
             return 0;
         }
-        private int AddToEmptySlots(Item inventoryItem, int amount)
+        private int AddToEmptySlots(Item inventoryItem, int amount, List<InventorySlot> slots)
         {
-            var slots = inventorySlots.Concat(hotbarSlots).ToList();
             var leftItem = SearchForEmptyItem(slots, inventoryItem, amount);
             return leftItem;
         }
@@ -81,9 +85,8 @@ namespace Manager
             return createdItem;
         }
         
-        private int CanAddAllItemsToInv(Item inventoryItem, int amount)
+        private int CanAddAllItemsToInv(Item inventoryItem, int amount, List<InventorySlot> slots)
         {
-            var slots = inventorySlots.Concat(hotbarSlots).ToList();
             var leftItem = SearchForSameItem(slots, inventoryItem, amount);
             return leftItem;
         }

@@ -1,5 +1,7 @@
+using System;
+using Entity.OnWorldItem.Base;
 using Manager;
-using So.ItemsSo.Armor;
+using So.ItemsSo.ArmorItems;
 using So.ItemsSo.Base;
 using TMPro;
 using UnityEngine;
@@ -23,7 +25,6 @@ namespace UI.Inventory
         public InventorySlot oldActiveSlot;
         
         private InventoryItem _dividedInstance;
-        
         public void SetItemData(Item item, InventorySlot parent)
         {
             if (parent != null)
@@ -46,10 +47,13 @@ namespace UI.Inventory
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            inventoryManager.trashSlot.gameObject.SetActive(true);
             if (amount > 1)
             {
-                _dividedInstance = inventoryManager.CreateNewInstance(activeSlot, currentItem, 1);
-                amount--;
+                var dividedAmount = Mathf.CeilToInt(amount / 2f);  
+                _dividedInstance = inventoryManager.CreateNewInstance(activeSlot, currentItem, dividedAmount);
+                amount -= dividedAmount;
+                
                 SetAmount();
             }
             else
@@ -74,7 +78,7 @@ namespace UI.Inventory
 
         private void MoveToTopLayer()
         {
-            transform.SetParent(transform.parent.parent.parent);
+            transform.SetParent(inventoryManager.inventoryPopUp.draggableItemsParent);
             transform.SetAsLastSibling();
         }
 
@@ -98,6 +102,8 @@ namespace UI.Inventory
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            inventoryManager.trashSlot.gameObject.SetActive(false);
+            
             if (activeSlot == null || activeSlot == oldActiveSlot)
             {
                 Debug.Log("Dropped back to same slot");

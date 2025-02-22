@@ -8,12 +8,12 @@ namespace Manager
         public void SetHealth(int val)
         {
             var player = GetPlayer();
-            player.inGameUIPopUp.SetHealth(val);
+            player.ConsumeHealth(val);
         }
         public void SetHunger(int val)
         {            
             var player = GetPlayer();
-            player.inGameUIPopUp.SetHunger(val);
+            player.ConsumeFood(val);
         }
 
         private PlayerBase GetPlayer()

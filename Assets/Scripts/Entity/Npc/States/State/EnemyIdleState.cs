@@ -15,7 +15,7 @@ namespace Entity.Npc.States.State
 
         public override void Enter()
         {
-            EnemyBase.animationController.SetFloat(ActionType.Idle);
+            SetFloat(ActionType.Idle);
             PlayerDetectorController.SetIdleCollider(true);
             NavMeshAgent.SetDestination(EnemyBase.transform.position);
             

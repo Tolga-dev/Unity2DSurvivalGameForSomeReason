@@ -1,5 +1,6 @@
 using System;
 using Entity.Npc.Enemy;
+using Entity.Npc.States.State;
 using UnityEngine;
 
 namespace Entity.Controllers.Npc.Enemy
@@ -10,8 +11,8 @@ namespace Entity.Controllers.Npc.Enemy
         public EnemyBase enemyBase;
     
         public CircleCollider2D idleCollider;  
-        public CircleCollider2D chaseCollider; 
-        
+        public CircleCollider2D chaseCollider;
+
         public void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
@@ -20,7 +21,7 @@ namespace Entity.Controllers.Npc.Enemy
 
                 if (idleCollider.enabled)
                 {
-                    enemyBase.PlayerDetectedByIdleCollider();    
+                    enemyBase.EnemyStateController.SetState<EnemyChaseState>(); 
                 }
             }
         }
@@ -33,11 +34,10 @@ namespace Entity.Controllers.Npc.Enemy
 
                 if (chaseCollider.enabled)
                 {
-                    enemyBase.PlayerLostByChaseCollider();   
+                    enemyBase.EnemyStateController.SetState<EnemyIdleState>();
                 }                
             }
         }
-        
         
         public void SetIdleCollider(bool b)
         {
@@ -47,13 +47,18 @@ namespace Entity.Controllers.Npc.Enemy
         
         public bool IsPlayerClose(float distance)
         {
-            return IsNpcClose(_playerTransform, distance);
+            return _playerTransform != null && IsNpcClose(_playerTransform, distance);
         }
 
-        public bool IsNpcClose(Transform playerTransform, float distance)
+        private bool IsNpcClose(Transform playerTransform, float distance)
         {
             return Vector3.Distance(enemyBase.transform.position, playerTransform.position) < distance;
         }
+        public float GetPlayerDistance()
+        {
+            return Vector3.Distance(enemyBase.transform.position, _playerTransform.position);
+        }
+        
         public Vector3 PlayerPosition => _playerTransform == null ? enemyBase.transform.position : _playerTransform.position;
     }
 

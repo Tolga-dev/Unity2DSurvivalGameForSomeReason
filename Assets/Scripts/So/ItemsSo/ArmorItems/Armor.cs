@@ -2,7 +2,7 @@ using So.ItemsSo.Base;
 using UI.Inventory;
 using UnityEngine;
 
-namespace So.ItemsSo.Armor
+namespace So.ItemsSo.ArmorItems
 {
     [CreateAssetMenu(fileName = "Armor", menuName = "So/Armor", order = 0)]
     public class Armor : Item
@@ -17,10 +17,6 @@ namespace So.ItemsSo.Armor
         public override ItemTypes GetItemType()
         {
             return ItemTypes.Armor;
-        }
-        public override string OnUseMessage()
-        {
-            return $"{attackDescription}, has {armorDurability} durability and {armorProtection} protection.";
         }
         public SlotTag GetArmorType()
         {

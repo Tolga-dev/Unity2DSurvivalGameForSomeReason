@@ -1,6 +1,7 @@
 using System;
 using Entity.Controllers.Base;
 using Entity.OnWorldItem;
+using Entity.OnWorldItem.Base;
 using Entity.Player;
 using Manager.Base;
 using UnityEngine;
@@ -11,9 +12,9 @@ namespace Entity.Controllers.Player
     [Serializable]
     public class PickUpController : ControllerBase
     {
-        public OnWorldItemBase currentItem;
+        public WorldItemBase currentItem;
         private PlayerBase _playerBase;
-        
+
         public override void Start(ManagerBase managerBase)
         {
             base.Start(managerBase);
@@ -30,14 +31,16 @@ namespace Entity.Controllers.Player
                 }
             }
         }
-        private void HandlePickedItem(OnWorldItemBase onWorldItemBase)
+        private void HandlePickedItem(WorldItemBase worldItemBase)
         {
-            var resAmount = _playerBase.gameManager.inventoryManager.SpawnInventoryItem(onWorldItemBase.currentItem, onWorldItemBase.currentItemAmount);
+            var inventoryManager = _playerBase.gameManager.inventoryManager;
+            
+            var resAmount = inventoryManager.SpawnInventoryItem(worldItemBase.currentItem, worldItemBase.currentItemAmount);
 
             if(resAmount == 0)
-                Object.Destroy(onWorldItemBase.gameObject);
+                Object.Destroy(worldItemBase.gameObject);
             else
-                onWorldItemBase.SetItemFromData(onWorldItemBase.currentItem, resAmount);
+                worldItemBase.SetItemFromData(worldItemBase.currentItem, resAmount, inventoryManager);
         }
         
     }

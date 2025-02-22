@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d947c0b81104c35b3811a274f045f93, type: 3}
   m_Name: EnemySo
   m_EditorClassIdentifier: 
-  entityName: 
-  entityDescription: 
-  entityHealth: 0
-  entitySpeed: 0
+  entityName: Enemy
+  entityDescription: Eat Shorts
+  entityMaxHealth: 100
+  entityMaxHunger: 100
+  entitySpeed: 3
+  hungerLossRate: 1
+  starvationDamage: 1
   animationIds:
   - name: Action
     actionType: 0
@@ -29,3 +32,29 @@ MonoBehaviour:
   - name: Action
     actionType: 2
     animationValue: 3
+  chaseSpeed: 6
+  boostSpeed: 10
+  speedBoostDuration: 0.5
+  walkStepCoolDown: 0.5
+  aoeAttackDamage: 50
+  abilityCooldown: 1
+  canBeDropItems:
+  - {fileID: 11400000, guid: 9cc6347b32b906c35938478f6cfa4dd2, type: 2}
+  - {fileID: 11400000, guid: b3219fbfb6ca5d8879e00ed99089e575, type: 2}
+  - {fileID: 11400000, guid: ad60fa0d077540a9f8d4c2a9dcbac776, type: 2}
+  - {fileID: 11400000, guid: 4a6a33c8c7ba3a644900e656beb6d9a3, type: 2}
+  - {fileID: 11400000, guid: f4926e21db4ce6ba38fa98d55f7f621b, type: 2}
+  - {fileID: 11400000, guid: 17feeee0322222b9bb579b1f75d43613, type: 2}
+  - {fileID: 11400000, guid: f21ebb63607c72a4eb8b8393ba6831ae, type: 2}
+  - {fileID: 11400000, guid: 9cc6347b32b906c35938478f6cfa4dd2, type: 2}
+  - {fileID: 11400000, guid: b3219fbfb6ca5d8879e00ed99089e575, type: 2}
+  - {fileID: 11400000, guid: ce5f2cf47cbdb27a2b4660a3754b3935, type: 2}
+  - {fileID: 11400000, guid: 36494e0265e5a662e8626f5e41f9d36a, type: 2}
+  longRangeAttack: 6
+  shortRangeAttack: 4
+  longRangeAttackPrefab: {fileID: 4947885268865837020, guid: 4000f9fc14f88dd369f9e8e2ec7cef39, type: 3}
+  projectileSpeed: 10
+  arrowDamage: 20
+  patrolRadius: 10
+  minDistanceToTarget: 0.5
+  toFindNewTargetWaitTime: 1

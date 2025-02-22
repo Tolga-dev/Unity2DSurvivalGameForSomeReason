@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Entity.OnWorldItem;
+using Entity.OnWorldItem.Base;
 using Manager.Base;
 using So.ItemsSo.Base;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -14,7 +16,6 @@ namespace Manager
         public GameManager gameManager;
 
         public List<Transform> spawnPoints = new List<Transform>();
-        public GameObject onWorldItemPrefab;
         
         protected override void Awake()
         {
@@ -29,22 +30,35 @@ namespace Manager
                 // spawnedItemBase.SetItemFromData(currentItem, 40); // to test it with big amount
             }
         }
-        public void SpawnFromItem(Item currentItem,Transform spawnPoint = null, int amount = 0)
+        public void SpawnFromItem(Item currentItem,Transform spawnPoint = null, int amount = 0, Vector3? spawnPointParent = null)
         {
-            var spawnedItemBase = CreateNewItemInstance(spawnPoint);
+            var spawnedItemBase = CreateNewItemInstance(currentItem,spawnPoint, spawnPointParent);
             
             amount = amount == 0 ? Random.Range(1, currentItem.MaxStackAbleAmount) : amount;
-            spawnedItemBase.SetItemFromData(currentItem, amount);
+            spawnedItemBase.SetItemFromData(currentItem, amount, InventoryManager);
         }
-        private OnWorldItemBase CreateNewItemInstance(Transform spawnPoint)
+        
+        private WorldItemBase CreateNewItemInstance(Item currentItem,Transform spawnPoint, Vector3? spawnPointParent = null)
         {
-            if (spawnPoint == null)
-                spawnPoint = gameManager.playerBase.transform;
+            Vector3 spawnPointParentVector3;
             
-            var spawnedItemBase = Instantiate(onWorldItemPrefab, spawnPoint.position, Quaternion.identity, spawnPoint)
-                .GetComponent<OnWorldItemBase>();
+            if (spawnPointParent == null)
+            {
+                if (spawnPoint == null)
+                    spawnPoint = gameManager.playerBase.transform;
+                
+                spawnPointParentVector3 = spawnPoint.position;
+            }
+            else
+            {
+                spawnPointParentVector3 = (Vector3)spawnPointParent;
+            }
             
-            spawnedItemBase.transform.localPosition = Vector3.zero;
+            var spawnedItemBase = Instantiate(currentItem.onWorldItemPrefab, spawnPointParentVector3, Quaternion.identity, spawnPoint)
+                .GetComponent<WorldItemBase>();
+            
+            if(spawnPoint != null)
+                spawnedItemBase.transform.localPosition = Vector3.zero;
             spawnedItemBase.transform.localScale = Vector3.one * 0.4f;
             
             spawnedItemBase.transform.SetParent(null);

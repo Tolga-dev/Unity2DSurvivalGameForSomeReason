@@ -11,9 +11,7 @@ namespace Entity.Npc.States.State
     public class EnemyPatrolState : EnemyState
     {
         private Coroutine _waitForSecondsToCoolDown;
-        private readonly float _patrolRadius = 10f;
-        private readonly float _minDistanceToTarget = 0.5f;
-        private readonly float _waitTime = 1f;
+
 
         public EnemyPatrolState(StateControllerBase stateController) : base(stateController)
         {
@@ -21,7 +19,7 @@ namespace Entity.Npc.States.State
 
         public override void Enter()
         {
-            EnemyBase.animationController.SetFloat(ActionType.Patrol);
+            SetFloat(ActionType.Patrol);
             PlayerDetectorController.SetIdleCollider(true);
             SetNewPatrolTarget();
         }
@@ -46,10 +44,10 @@ namespace Entity.Npc.States.State
 
         private void SetNewPatrolTarget()
         {
-            Vector3 randomDirection = Random.insideUnitSphere * _patrolRadius;
+            Vector3 randomDirection = Random.insideUnitSphere * EnemySo.patrolRadius;
             randomDirection += EnemyBase.transform.position;
 
-            if (NavMesh.SamplePosition(randomDirection, out var hit, _patrolRadius, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomDirection, out var hit, EnemySo.patrolRadius, NavMesh.AllAreas))
             {
                 NavMeshAgent.SetDestination(hit.position);
             }
@@ -57,12 +55,12 @@ namespace Entity.Npc.States.State
 
         private bool CanSelectNewTarget()
         {
-            return !NavMeshAgent.pathPending && NavMeshAgent.remainingDistance < _minDistanceToTarget;
+            return !NavMeshAgent.pathPending && NavMeshAgent.remainingDistance < EnemySo.minDistanceToTarget;
         }
 
         private IEnumerator WaitAndSetNewTarget()
         {
-            yield return new WaitForSeconds(_waitTime);
+            yield return new WaitForSeconds(EnemySo.toFindNewTargetWaitTime);
             _waitForSecondsToCoolDown = null; // Reset the cooldown
             SetNewPatrolTarget();
         }
