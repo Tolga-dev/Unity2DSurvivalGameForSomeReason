@@ -1,4 +1,4 @@
-# 2D Game Developed in Unity
+# 2D Game Developed in Unity For Nano Kings
 **this repos has 3 branch, i recommend to check them all from task 1. to task 3. But if you directly want to use repo, just go to main and download :D** 
 
 `git clone git@github.com:Tolga-dev/Unity2DSurvivalGameForSomeReason.git`
